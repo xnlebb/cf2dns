@@ -105,9 +105,9 @@ def main(cloud):
             if cfips == None or cfips["code"] != 200:
                 print("GET CLOUDFLARE IP ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: " + str(cfips["info"]))
                 return
-            cf_cmips = cfips["info"]["CM"]
-            cf_cuips = cfips["info"]["CU"]
-            cf_ctips = cfips["info"]["CT"]
+            cf_cmips = list(filter(lambda x:x["line"]=="CM",cfips["info"]))
+            cf_cuips = list(filter(lambda x:x["line"]=="CU",cfips["info"]))
+            cf_ctips = list(filter(lambda x:x["line"]=="CT",cfips["info"]))
             for domain, sub_domains in DOMAINS.items():
                 for sub_domain, lines in sub_domains.items():
                     temp_cf_cmips = cf_cmips.copy()
